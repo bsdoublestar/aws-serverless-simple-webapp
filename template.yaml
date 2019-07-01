@@ -14,6 +14,8 @@ Resources:
   ##########################################################################################
   WebsiteBucket:
     Type: "AWS::S3::Bucket"  
+    Metadata:
+      Object1: Location1    
     Properties:
       BucketName: "wild-static-web-content"
       WebsiteConfiguration:
