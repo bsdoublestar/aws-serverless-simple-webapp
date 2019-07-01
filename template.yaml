@@ -280,6 +280,7 @@ Resources:
               - 'dynamodb:GetItem'
               - 'dynamodb:GetRecords'
               - 'dynamodb:Scan'
+              - 'dynamodb:describeTable'              
 #              - 'dynamodb:List*'
               - 'dynamodb:DeleteItem'
               - 'dynamodb:UpdateItem'
