@@ -282,7 +282,7 @@ Resources:
               - 'dynamodb:Scan'
               - 'dynamodb:DescribeTable'              
 #              - 'dynamodb:List*'
-              - 'dynamodb:DeleteItem'
+#              - 'dynamodb:DeleteItem'
               - 'dynamodb:UpdateItem'
               Resource:
               - !Sub ${rideTable.Arn}
