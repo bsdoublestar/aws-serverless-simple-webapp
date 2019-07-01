@@ -281,7 +281,7 @@ Resources:
               - 'dynamodb:GetRecords'
               - 'dynamodb:Scan'
               - 'dynamodb:DescribeTable'              
-              - 'dynamodb:List*'
+#              - 'dynamodb:List*'
               - 'dynamodb:DeleteItem'
               - 'dynamodb:UpdateItem'
               Resource:
