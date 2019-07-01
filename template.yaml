@@ -281,6 +281,7 @@ Resources:
               - 'dynamodb:GetRecords'
               - 'dynamodb:Scan'
 #              - 'dynamodb:List*'
+              - 'dynamodb:DeleteItem'
               - 'dynamodb:UpdateItem'
               Resource:
               - !Sub ${rideTable.Arn}
