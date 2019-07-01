@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>jQuery AJAX POST Form</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+<div id="createResponse">
+    <pre></pre>
+</div>
+
+<form id="create-form">
+    <button type="submit">Create Ride</button>
+</form>
+<form id="read-form">
+    <button type="submit">Show Rides</button>
+</form>
+
+<table id="list_table_json">
+    <thead>
+        <tr>
+            <th>Ride</th>
+        </tr>                   
+    </thead>
+    <tbody>
+
+    </tbody>
+</table>
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    (function($){
+        function createRide( e ){
+            console.log( 'createRide: Begin' );
+            $.ajax({
+                url: 'https://4mmuolcjva.execute-api.eu-central-1.amazonaws.com/DEV/api/v1/rides',
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function( data, textStatus, jQxhr ){
+                    $('#createResponse pre').html( data );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+        $('#create-form').submit( createRide );
+    })(jQuery);
+</script>
+
+<script>
+    (function($){
+        function readRides( e ){
+            console.log( 'readRides: Begin' );
+            $.ajax({
+                url: 'https://4mmuolcjva.execute-api.eu-central-1.amazonaws.com/DEV/api/v1/rides',
+                dataType: 'text',
+                type: 'get',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function(data){
+                console.log(data);
+                var json = JSON.parse(data);
+                var event_data = '';
+                var table = document.getElementById("list_table_json");
+                var old_tbody = table.getElementsByTagName("tbody")[0];
+                var new_tbody = document.createElement("tbody");
+                $.each(json.Items, function(index, value){
+                    console.log(value);
+                    console.log(value.RideId.S);
+                    event_data += '<tr>';
+                    event_data += '<td>'+value.RideId.S+'</td>';
+                    event_data += '</tr>';
+                });
+                $("#list_table_json tr").remove();
+                $("#list_table_json").append(event_data);
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+        $('#read-form').submit( readRides );
+    })(jQuery);
+</script>
+
+</body>
+</html>

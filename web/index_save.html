@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Hello World with AJAX</title>
+    <meta charset="utf-8">
+</head>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script>
+    (function($){
+        function processForm2() {
+            console.log('processForm2');
+        }
+        <!--
+        function processForm( e ){
+            $.ajax({
+                url: 'http://lnt6h1tcnb.execute-api.eu-central-1.amazonaws.com/call',
+                dataType: 'json',
+                type: 'post',
+                contentType: 'application/json',
+                data: $(this).serialize(),
+                success: function( data, textStatus, jQxhr ){
+                    $('#response pre').html( data );
+                },
+                error: function( jqXhr, textStatus, errorThrown ){
+                    console.log( errorThrown );
+                }
+            });
+
+            e.preventDefault();
+        }
+        -->
+        $('#my-form').submit( processForm2 );
+    })(jQuery);
+</script>
+<body>
+
+<h1>Hello World!</h1>
+
+<p>Lorem ipsum 2</p>
+
+<div id="response">
+    <pre></pre>
+</div>
+
+<form id="my-form">
+    <button type="submit">Submit</button>
+</form>
+    
+
+</body>
+</html>
+
+
+
+
+
