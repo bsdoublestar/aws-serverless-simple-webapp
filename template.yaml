@@ -87,7 +87,7 @@ Resources:
         Aliases:
         - kmeson.com
         ViewerCertificate:
-          AcmCertificateArn: 'arn:aws:acm:eu-central-1:052277535492:certificate/3cd48bf9-63f2-4816-b74b-5914c00ba225'
+          AcmCertificateArn: 'arn:aws:acm:us-east-1:052277535492:certificate/c8c20df3-a43d-453f-b929-e57869d369cd'
           SslSupportMethod: 'sni-only'
         PriceClass: 'PriceClass_All'
         Restrictions:
