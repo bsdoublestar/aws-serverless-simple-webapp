@@ -401,6 +401,12 @@ Resources:
       RestApiId: !Ref "apiGateway"
       StageName: "DEV" 
 
+  AlternateDomain:
+    Type: 'AWS::ApiGateway::DomainName'
+    Properties:
+      DomainName: 'kmeson.com'
+      CertificateArn: 'arn:aws:acm:eu-central-1:052277535492:certificate/3cd48bf9-63f2-4816-b74b-5914c00ba225'
+
 Outputs:     
   GetRidesMethodArn:
     Description: "Arn of Get Rides Method"
