@@ -80,8 +80,10 @@ Resources:
         HttpVersion: http2
         Origins:
         - DomainName: !Join
-          - !GetAtt 'StaticWebSiteBucket.DomainName'
-          - '/za-code-deploy/web'
+          - ''
+          - 
+            - !GetAtt 'StaticWebSiteBucket.DomainName'
+            - '/za-code-deploy/web'
           Id: s3origin
           S3OriginConfig:
             OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${WebSiteAccessIdentity}'
@@ -397,8 +399,10 @@ Outputs:
   BucketDomainName:
     Description: "Domain Name of Bucket"
     Value: !Join
-      - !GetAtt 'StaticWebSiteBucket.DomainName'
-      - '/za-code-deploy/web'      
+      - ''
+      - 
+        - !GetAtt 'StaticWebSiteBucket.DomainName'
+        - '/za-code-deploy/web'    
   WebSiteAccessIdentity:
     Description: "Website Access Identity"
     Value: !Ref WebSiteAccessIdentity
