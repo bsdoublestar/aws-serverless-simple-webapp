@@ -9,36 +9,6 @@ Description: >
   Very simple web application using Lambda, Apigateway, S3, dynamodb and cognito
 
 Resources:
-  ##########################################################################################
-  # Define bucket and enable Bucket hosting (Static website hosting) 
-  ##########################################################################################
-  WebsiteBucket:
-    Type: "AWS::S3::Bucket"  
-    Metadata:
-      Object1: Location1    
-    Properties:
-      BucketName: "wild-static-web-content"
-      WebsiteConfiguration:
-        IndexDocument: index.html
-
-
-  ##########################################################################################
-  # This READ policy is required to be able to access the static web site
-  #   Access web site via 
-  #      http://wild-static-web-content.s3-website.eu-central-1.amazonaws.com/
-  ##########################################################################################
-  WebsiteBucketPolicy:
-    Type: "AWS::S3::BucketPolicy"  
-    Properties:
-      Bucket: !Ref WebsiteBucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-          -
-            Effect: Allow
-            Principal: "*"
-            Action: s3:GetObject
-            Resource: !Sub "arn:aws:s3:::${WebsiteBucket}/*"
 
   ##########################################################################################
   # StaticWebSiteBucket
@@ -109,7 +79,9 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-        - DomainName: !GetAtt 'StaticWebSiteBucket.DomainName'
+        - DomainName: !Sub
+          - !GetAtt 'StaticWebSiteBucket.DomainName'
+          - '/za-code-deploy/web'
           Id: s3origin
           S3OriginConfig:
             OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${WebSiteAccessIdentity}'
@@ -122,44 +94,6 @@ Resources:
             - CH
             - AT        
 
-
-# webSiteDistribution:
-#   Type: "AWS::CloudFront::Distribution"
-#   Properties:
-#     DistributionConfig:
-#       Origins:
-#       -
-#         DomainName: !GetAtt
-#           - "WebsiteBucket"
-#           - "DomainName"
-#         Id: web-site-s3-bucket
-#         S3OriginConfig: "origin-access-identity/cloudfront/EGJ1HO6ZG9ZVQ"
-#       Enabled: "true"
-#       Logging:
-#         IncludeCookies: "false"
-#         Bucket: za-cloudfront-logs
-#         Prefix: "new/"
-#       DefaultCacheBehavior:
-#         AllowedMethods:
-#         - GET
-#         - HEAD
-#         - OPTIONS
-#         TargetOriginId: web-site-s3-bucket
-#         ForwardedValues:
-#           QueryString: "false"
-#           Cookies:
-#             Forward: none
-#         ViewerProtocolPolicy: redirect-to-https
-#       DefaultRootObject: index.html
-#       Restrictions:
-#         GeoRestriction:
-#           RestrictionType: whitelist
-#           Locations:
-#           - DE
-#           - CH
-#           - AT
-#       ViewerCertificate:
-#         CloudFrontDefaultCertificate: "true"
 
 ########  ##    ## ##    ##    ###    ##     ##  #######  ########  ########  
 ##     ##  ##  ##  ###   ##   ## ##   ###   ### ##     ## ##     ## ##     ## 
@@ -462,9 +396,9 @@ Outputs:
         - "/*"   
   BucketDomainName:
     Description: "Domain Name of Bucket"
-    Value: !GetAtt
-      - "WebsiteBucket"
-      - "DomainName" 
+    Value: !Sub
+      - !GetAtt 'StaticWebSiteBucket.DomainName'
+      - '/za-code-deploy/web'      
   WebSiteAccessIdentity:
     Description: "Website Access Identity"
     Value: !Ref WebSiteAccessIdentity
