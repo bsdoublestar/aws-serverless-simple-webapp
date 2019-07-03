@@ -101,8 +101,8 @@ Resources:
       Name: 'kmeson.com.'
       AliasTarget:
         DNSName: !GetAtt webSiteDistribution.DomainName
-        HostedZoneId: 'Z2ZHR0TFXKH3HH'
-      HostedZoneId: 'Z2ZHR0TFXKH3HH'
+        HostedZoneId: 'Z2FDTNDATAQYW2' # HostedZoneId of CloudFront!!!
+      HostedZoneId: 'Z2ZHR0TFXKH3HH'   # My HostedZoneId for kmeson.com.
       Type: 'A'
 
   R53RecordSetIPv6:
@@ -111,8 +111,8 @@ Resources:
       Name: 'kmeson.com.'
       AliasTarget:
         DNSName: !GetAtt webSiteDistribution.DomainName
-        HostedZoneId: 'Z2ZHR0TFXKH3HH'
-      HostedZoneId: 'Z2ZHR0TFXKH3HH'
+        HostedZoneId: 'Z2FDTNDATAQYW2' # HostedZoneId of CloudFront!!!
+      HostedZoneId: 'Z2ZHR0TFXKH3HH'   # My HostedZoneId for kmeson.com.
       Type: 'AAAA'
 
 
