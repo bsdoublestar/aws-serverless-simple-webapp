@@ -84,6 +84,8 @@ Resources:
           Id: s3origin
           S3OriginConfig:
             OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${WebSiteAccessIdentity}'
+        Aliases:
+        - kmeson.com
         PriceClass: 'PriceClass_All'
         Restrictions:
           GeoRestriction:
@@ -92,6 +94,26 @@ Resources:
             - DE
             - CH
             - AT        
+
+  R53RecordSetIPv4:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      Name: 'kmeson.com.'
+      AliasTarget:
+        DNSName: !GetAtt webSiteDistribution.DomainName
+        HostedZoneId: 'Z2ZHR0TFXKH3HH'
+      HostedZoneId: 'Z2ZHR0TFXKH3HH'
+      Type: 'A'
+
+  R53RecordSetIPv6:
+    Type: 'AWS::Route53::RecordSet'
+    Properties:
+      Name: 'kmeson.com.'
+      AliasTarget:
+        DNSName: !GetAtt webSiteDistribution.DomainName
+        HostedZoneId: 'Z2ZHR0TFXKH3HH'
+      HostedZoneId: 'Z2ZHR0TFXKH3HH'
+      Type: 'AAAA'
 
 
 ########  ##    ## ##    ##    ###    ##     ##  #######  ########  ########  
