@@ -13,12 +13,6 @@ Resources:
   ##########################################################################################
   # StaticWebSiteBucket
   ##########################################################################################
-  DummyBucket:
-    Type: "AWS::S3::Bucket"
-    Properties:
-      BucketName: "za-dummy-bucket"
-
-
   StaticWebSiteBucket:
     Type: "AWS::S3::Bucket"
     Properties:
