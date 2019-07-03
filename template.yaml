@@ -79,7 +79,7 @@ Resources:
         Enabled: true
         HttpVersion: http2
         Origins:
-        - DomainName: !Sub
+        - DomainName: !Join
           - !GetAtt 'StaticWebSiteBucket.DomainName'
           - '/za-code-deploy/web'
           Id: s3origin
@@ -396,7 +396,7 @@ Outputs:
         - "/*"   
   BucketDomainName:
     Description: "Domain Name of Bucket"
-    Value: !Sub
+    Value: !Join
       - !GetAtt 'StaticWebSiteBucket.DomainName'
       - '/za-code-deploy/web'      
   WebSiteAccessIdentity:
