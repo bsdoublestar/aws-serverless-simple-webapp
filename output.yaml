@@ -5,25 +5,6 @@ Description: 'Very simple web application using Lambda, Apigateway, S3, dynamodb
 
   '
 Resources:
-  WebsiteBucket:
-    Type: AWS::S3::Bucket
-    Properties:
-      BucketName: wild-static-web-content
-      WebsiteConfiguration:
-        IndexDocument: index.html
-  WebsiteBucketPolicy:
-    Type: AWS::S3::BucketPolicy
-    Properties:
-      Bucket:
-        Ref: WebsiteBucket
-      PolicyDocument:
-        Version: 2012-10-17
-        Statement:
-        - Effect: Allow
-          Principal: '*'
-          Action: s3:GetObject
-          Resource:
-            Fn::Sub: arn:aws:s3:::${WebsiteBucket}/*
   StaticWebSiteBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -74,7 +55,7 @@ Resources:
             Cookies:
               Forward: none
             QueryString: false
-          MaxTTL: 600
+          MaxTTL: 60
           MinTTL: 60
           TargetOriginId: s3origin
           ViewerProtocolPolicy: allow-all
@@ -86,6 +67,7 @@ Resources:
             Fn::GetAtt:
             - StaticWebSiteBucket
             - DomainName
+          OriginPath: /za-code-deploy/web
           Id: s3origin
           S3OriginConfig:
             OriginAccessIdentity:
@@ -117,7 +99,7 @@ Resources:
       Description: Function to create Rides
       Runtime: python3.6
       Handler: writer.lambda_handler
-      CodeUri: s3://za-wild-poc/f30133408648b95d614105c72a44394e
+      CodeUri: s3://za-wild-poc/7518c351dfc7ecf322a7415530d0ac3e
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
@@ -128,7 +110,7 @@ Resources:
       Description: Function to read all Rides
       Runtime: python3.6
       Handler: getall.lambda_handler
-      CodeUri: s3://za-wild-poc/1ef29593bbf7e6cb6c38ef3f5a5eeb62
+      CodeUri: s3://za-wild-poc/103a281a09f2ccd5c40e210d9a2b0fea
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
@@ -173,6 +155,7 @@ Resources:
             - dynamodb:GetItem
             - dynamodb:GetRecords
             - dynamodb:Scan
+            - dynamodb:DescribeTable
             - dynamodb:UpdateItem
             Resource:
             - Fn::Sub: ${rideTable.Arn}
@@ -326,7 +309,7 @@ Outputs:
     Description: Domain Name of Bucket
     Value:
       Fn::GetAtt:
-      - WebsiteBucket
+      - StaticWebSiteBucket
       - DomainName
   WebSiteAccessIdentity:
     Description: Website Access Identity

@@ -13,6 +13,12 @@ Resources:
   ##########################################################################################
   # StaticWebSiteBucket
   ##########################################################################################
+  DummyBucket:
+    Type: "AWS::S3::Bucket"
+    Properties:
+      BucketName: "za-dummy-bucket"
+
+
   StaticWebSiteBucket:
     Type: "AWS::S3::Bucket"
     Properties:
@@ -46,7 +52,7 @@ Resources:
     Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
     Properties:
       CloudFrontOriginAccessIdentityConfig:
-        Comment: !Ref StaticWebSiteBucket
+        Comment: !Ref StaticWebSiteBucket       
 
   webSiteDistribution:
     Type: 'AWS::CloudFront::Distribution'
@@ -71,7 +77,7 @@ Resources:
             Cookies:
               Forward: none
             QueryString: false
-          MaxTTL: 600 # in seconds
+          MaxTTL: 60 # in seconds
           MinTTL: 60 # in seconds
           TargetOriginId: s3origin
           ViewerProtocolPolicy: "allow-all"
