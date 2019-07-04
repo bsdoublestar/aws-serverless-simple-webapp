@@ -85,7 +85,7 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${WebSiteAccessIdentity}'
         Aliases:
-        - *.kmeson.com
+        - "*.kmeson.com"
         ViewerCertificate:
           AcmCertificateArn: 'arn:aws:acm:us-east-1:052277535492:certificate/c8c20df3-a43d-453f-b929-e57869d369cd'
           SslSupportMethod: 'sni-only'

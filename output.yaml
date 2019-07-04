@@ -72,6 +72,11 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity:
               Fn::Sub: origin-access-identity/cloudfront/${WebSiteAccessIdentity}
+        Aliases:
+        - '*.kmeson.com'
+        ViewerCertificate:
+          AcmCertificateArn: arn:aws:acm:us-east-1:052277535492:certificate/c8c20df3-a43d-453f-b929-e57869d369cd
+          SslSupportMethod: sni-only
         PriceClass: PriceClass_All
         Restrictions:
           GeoRestriction:
@@ -80,6 +85,30 @@ Resources:
             - DE
             - CH
             - AT
+  R53RecordSetIPv4:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: kmeson.com.
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+          - webSiteDistribution
+          - DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+      HostedZoneId: Z2ZHR0TFXKH3HH
+      Type: A
+  R53RecordSetIPv6:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: kmeson.com.
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+          - webSiteDistribution
+          - DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+      HostedZoneId: Z2ZHR0TFXKH3HH
+      Type: AAAA
   rideTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -99,7 +128,7 @@ Resources:
       Description: Function to create Rides
       Runtime: python3.6
       Handler: writer.lambda_handler
-      CodeUri: s3://za-wild-poc/7518c351dfc7ecf322a7415530d0ac3e
+      CodeUri: s3://za-wild-poc/17b1f90e18320dc677eb4c0a0e75cc7d
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
@@ -110,7 +139,7 @@ Resources:
       Description: Function to read all Rides
       Runtime: python3.6
       Handler: getall.lambda_handler
-      CodeUri: s3://za-wild-poc/103a281a09f2ccd5c40e210d9a2b0fea
+      CodeUri: s3://za-wild-poc/e64094d194b7aa3fe0645d0b23fa0ab4
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
