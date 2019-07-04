@@ -1,0 +1,65 @@
+body {
+    height: 1000px;
+    background-color: lightgray; /* For browsers that do not support gradients */
+    background-image: linear-gradient(white, lightgray); /* Standard syntax (must be last) */
+    padding: 10px;
+    margin: 0px;
+}
+
+h1 {
+    color: navy;
+    margin-left: 20px;
+}
+
+div {
+    border-radius: 2px;
+}
+
+button {
+    border: none;
+    color: black;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 10px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+.createRideButton {
+    background-color: grey;
+    color: white;
+    font-weight: bold;
+}
+
+.createRideDiv {
+    background-color: lightcyan;
+    border: 1px;
+    border-style: solid;
+    border-color: cyan;
+    color: white;
+    margin: 0px;
+    padding: 5px;
+    position: relative;
+}
+
+.rideCreatedFeedbackDiv {
+    position: absolute;
+    top: 12px;
+    left: 130px;
+    width: 200px;
+    height: 20px;
+    background-color: white;
+    color: black;
+    padding: 2px;
+}
+
+.webPageVersion {
+    position: absolute;
+    top: 0px;
+    right: 10px;
+    font-size: 8px;
+    color: grey;
+}
+

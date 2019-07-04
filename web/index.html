@@ -3,11 +3,17 @@
 <head>
     <title>AWS Serverless Simple Webapp</title>
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
 
-<div id="createResponse">
-    V0001
+<div class="webPageVersion">
+    Version 0.0.1
+</div>
+
+<div class="createRideDiv">
+    <button class="createRideButton">Create New Ride</button>
+    <div class="rideCreatedFeedbackDiv"></div>
 </div>
 
 <div id="createResponse">
@@ -15,10 +21,10 @@
 </div>
 
 <form id="create-form">
-    <button type="submit">Create Ride</button>
+    <button class="button" type="submit">Create Ride</button>
 </form>
 <form id="read-form">
-    <button type="submit">Show Rides</button>
+    <button class="button" type="submit">Show Rides</button>
 </form>
 
 <table id="list_table_json">
