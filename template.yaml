@@ -4,7 +4,7 @@ AWSTemplateFormatVersion: '2010-09-09'
 # Transform required for serverless components like Lambda
 ##########################################################################################
 Transform: AWS::Serverless-2016-10-31
-  
+
 Description: >
   Very simple web application using Lambda, Apigateway, S3, dynamodb and cognito
 
@@ -22,7 +22,7 @@ Resources:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "za-static-web-site-bucket"
-  
+
   WebSiteReadPolicy:
     Type: "AWS::S3::BucketPolicy"
     Properties:
@@ -39,19 +39,19 @@ Resources:
 
 
 
-  ####### ##      #######  ##     ## ########  ######## ########   #######  ##    ## ########  
- ##       ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ###   ##    ## 
-##        ##     ##     ## ##     ## ##     ## #######  ##     ## ##     ## ####  ##    ## 
-##        ##     ##     ## ##     ## ##     ## ##       ########  ##     ## ## ## ##    ##  
-##        ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ##  ####    ## 
- ##       ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ##   ###    ## 
-  ####### ######  #######   #######  ########  ##       ##     ##  #######  ##    ##    ##              
+  ####### ##      #######  ##     ## ########  ######## ########   #######  ##    ## ########
+ ##       ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ###   ##    ##
+##        ##     ##     ## ##     ## ##     ## #######  ##     ## ##     ## ####  ##    ##
+##        ##     ##     ## ##     ## ##     ## ##       ########  ##     ## ## ## ##    ##
+##        ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ##  ####    ##
+ ##       ##     ##     ## ##     ## ##     ## ##       ##     ## ##     ## ##   ###    ##
+  ####### ######  #######   #######  ########  ##       ##     ##  #######  ##    ##    ##
 
   WebSiteAccessIdentity:
     Type: "AWS::CloudFront::CloudFrontOriginAccessIdentity"
     Properties:
       CloudFrontOriginAccessIdentityConfig:
-        Comment: !Ref StaticWebSiteBucket       
+        Comment: !Ref StaticWebSiteBucket
 
   webSiteDistribution:
     Type: 'AWS::CloudFront::Distribution'
@@ -90,11 +90,7 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity: !Sub 'origin-access-identity/cloudfront/${WebSiteAccessIdentity}'
         Aliases:
-<<<<<<< HEAD
         - "kmeson.com"
-=======
-        - "*.kmeson.com"
->>>>>>> cca58c75be99623bee502eeb3c9dc9e0b59118ee
         ViewerCertificate:
           AcmCertificateArn: 'arn:aws:acm:us-east-1:052277535492:certificate/ff5a45fa-7c29-453b-a96e-6f6f6aa9324d'
           SslSupportMethod: 'sni-only'
@@ -105,7 +101,7 @@ Resources:
             Locations:
             - DE
             - CH
-            - AT        
+            - AT
 
   R53RecordSetIPv4:
     Type: 'AWS::Route53::RecordSet'
@@ -130,40 +126,40 @@ Resources:
       Type: 'AAAA'
 
 
-########  ##    ## ##    ##    ###    ##     ##  #######  ########  ########  
-##     ##  ##  ##  ###   ##   ## ##   ###   ### ##     ## ##     ## ##     ## 
-##     ##   ####   ####  ##  ##   ##  #### #### ##     ## ##     ## ##     ## 
-##     ##    ##    ## ## ## ##     ## ## ### ## ##     ## ##     ## ########  
-##     ##    ##    ##  #### ######### ##     ## ##     ## ##     ## ##     ## 
-##     ##    ##    ##   ### ##     ## ##     ## ##     ## ##     ## ##     ## 
-########     ##    ##    ## ##     ## ##     ##  #######  ########  ########  
+########  ##    ## ##    ##    ###    ##     ##  #######  ########  ########
+##     ##  ##  ##  ###   ##   ## ##   ###   ### ##     ## ##     ## ##     ##
+##     ##   ####   ####  ##  ##   ##  #### #### ##     ## ##     ## ##     ##
+##     ##    ##    ## ## ## ##     ## ## ### ## ##     ## ##     ## ########
+##     ##    ##    ##  #### ######### ##     ## ##     ## ##     ## ##     ##
+##     ##    ##    ##   ### ##     ## ##     ## ##     ## ##     ## ##     ##
+########     ##    ##    ## ##     ## ##     ##  #######  ########  ########
 
 
   ##########################################################################################
   # Rides DynamoDB Table
   ##########################################################################################
-  rideTable: 
+  rideTable:
     Type: AWS::DynamoDB::Table
-    Properties: 
-      AttributeDefinitions: 
-        - 
+    Properties:
+      AttributeDefinitions:
+        -
           AttributeName: "RideId"
           AttributeType: "S"
-      KeySchema: 
-        - 
+      KeySchema:
+        -
           AttributeName: "RideId"
           KeyType: "HASH"
-      ProvisionedThroughput: 
+      ProvisionedThroughput:
         ReadCapacityUnits: "5"
         WriteCapacityUnits: "5"
       TableName: "Rides"
 
-##          ###    ##     ## ########  ########     ###    
-##         ## ##   ###   ### ##     ## ##     ##   ## ##   
-##        ##   ##  #### #### ##     ## ##     ##  ##   ##  
-##       ##     ## ## ### ## ########  ##     ## ##     ## 
-##       ######### ##     ## ##     ## ##     ## ######### 
-##       ##     ## ##     ## ##     ## ##     ## ##     ## 
+##          ###    ##     ## ########  ########     ###
+##         ## ##   ###   ### ##     ## ##     ##   ## ##
+##        ##   ##  #### #### ##     ## ##     ##  ##   ##
+##       ##     ## ## ### ## ########  ##     ## ##     ##
+##       ######### ##     ## ##     ## ##     ## #########
+##       ##     ## ##     ## ##     ## ##     ## ##     ##
 ######## ##     ## ##     ## ########  ########  ##     ##
 
 
@@ -179,7 +175,7 @@ Resources:
       CodeUri: ./src/lambda/writer.py
       Role: !Sub ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
-      Timeout: 3    
+      Timeout: 3
 
   getAllRidesFunction:
     Type: "AWS::Serverless::Function"
@@ -190,15 +186,15 @@ Resources:
       CodeUri: ./src/lambda/getall.py
       Role: !Sub ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
-      Timeout: 3      
+      Timeout: 3
 
-####    ###    ##     ## 
- ##    ## ##   ###   ### 
- ##   ##   ##  #### #### 
- ##  ##     ## ## ### ## 
- ##  ######### ##     ## 
- ##  ##     ## ##     ## 
-#### ##     ## ##     ## 
+####    ###    ##     ##
+ ##    ## ##   ###   ###
+ ##   ##   ##  #### ####
+ ##  ##     ## ## ### ##
+ ##  ######### ##     ##
+ ##  ##     ## ##     ##
+#### ##     ## ##     ##
 
 
   ##########################################################################################
@@ -251,7 +247,7 @@ Resources:
               - 'dynamodb:GetItem'
               - 'dynamodb:GetRecords'
               - 'dynamodb:Scan'
-              - 'dynamodb:DescribeTable'              
+              - 'dynamodb:DescribeTable'
 #              - 'dynamodb:List*'
 #              - 'dynamodb:DeleteItem'
               - 'dynamodb:UpdateItem'
@@ -261,7 +257,7 @@ Resources:
 
   ##########################################################################################
   # API to call lambda
-  ########################################################################################## 
+  ##########################################################################################
   APIAccessToLambdaRole:
     Type: "AWS::IAM::Role"
     Properties:
@@ -275,7 +271,7 @@ Resources:
               - "apigateway.amazonaws.com"
             Action: "sts:AssumeRole"
 #      ManagedPolicyArns:
-#        - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"            
+#        - "arn:aws:iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
       Policies:
         - PolicyName: "LambdaAccess"
           PolicyDocument:
@@ -285,7 +281,7 @@ Resources:
                 Action:
                   - "lambda:InvokeFunction"
                 Resource: "*"                     # !GetAtt "getAllRidesFunction.Arn"
-          
+
 
    ###     ######   ####
   ## ##    ##   ##   ##
@@ -294,7 +290,7 @@ Resources:
 #########  #####     ##
 ##     ##  ##        ##
 ##     ##  ##       ####
-             
+
   apiGateway:
     Type: "AWS::ApiGateway::RestApi"
     Properties:
@@ -303,8 +299,8 @@ Resources:
 
   ##########################################################################################
   # api resource
-  ##########################################################################################   
-  apiResource:   
+  ##########################################################################################
+  apiResource:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       ParentId:
@@ -313,31 +309,31 @@ Resources:
         - RootResourceId
       PathPart: api
       RestApiId:
-        Ref: apiGateway    
+        Ref: apiGateway
 
   ##########################################################################################
   # v1 resource
   ##########################################################################################
-  apiV1Resource:         
+  apiV1Resource:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       ParentId:
         Ref: apiResource
       PathPart: v1
       RestApiId:
-        Ref: apiGateway      
-        
+        Ref: apiGateway
+
   ##########################################################################################
   # rides V1 resource
   ##########################################################################################
-  ridesV1Resource:         
+  ridesV1Resource:
     Type: "AWS::ApiGateway::Resource"
     Properties:
       ParentId:
         Ref: apiV1Resource
       PathPart: rides
       RestApiId:
-        Ref: apiGateway         
+        Ref: apiGateway
 
   ##########################################################################################
   # GET rides Method
@@ -377,13 +373,13 @@ Resources:
       ResourceId:
         !Ref "ridesV1Resource"
       RestApiId:
-        !Ref "apiGateway"    
+        !Ref "apiGateway"
 
 
   rideCreationFunctionInvokePermission:
     Type: AWS::Lambda::Permission
     Properties:
-      FunctionName: !GetAtt 
+      FunctionName: !GetAtt
         - rideCreationFunction
         - Arn
       Action: "lambda:InvokeFunction"
@@ -403,7 +399,7 @@ Resources:
 
   ##########################################################################################
   # API Stage
-  ##########################################################################################            
+  ##########################################################################################
   apiGatewayDeployment:
     Type: "AWS::ApiGateway::Deployment"
     DependsOn:
@@ -411,9 +407,9 @@ Resources:
       - "getRidesMethodV1"
     Properties:
       RestApiId: !Ref "apiGateway"
-      StageName: "DEV" 
+      StageName: "DEV"
 
-Outputs:     
+Outputs:
   GetRidesMethodArn:
     Description: "Arn of Get Rides Method"
     Value: !GetAtt "getAllRidesFunction.Arn"
@@ -428,10 +424,10 @@ Outputs:
         - !Ref "AWS::AccountId"
         - ":"
         - !Ref "apiGateway"
-        - "/*"   
+        - "/*"
   BucketDomainName:
     Description: "Domain Name of Bucket"
-    Value: !GetAtt 'StaticWebSiteBucket.DomainName'  
+    Value: !GetAtt 'StaticWebSiteBucket.DomainName'
   WebSiteAccessIdentity:
     Description: "Website Access Identity"
     Value: !Ref WebSiteAccessIdentity
@@ -439,10 +435,10 @@ Outputs:
     Description: "Canonical User Id"
     Value: !GetAtt
       - "WebSiteAccessIdentity"
-      - "S3CanonicalUserId"      
+      - "S3CanonicalUserId"
   DistributionId:
     Description: 'CloudFront Distribution ID'
     Value: !Ref webSiteDistribution
   DistributionDomain:
     Description: 'Cloudfront Distribution Domain'
-    Value: !GetAtt webSiteDistribution.DomainName      
+    Value: !GetAtt webSiteDistribution.DomainName
