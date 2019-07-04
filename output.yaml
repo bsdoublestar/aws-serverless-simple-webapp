@@ -5,6 +5,10 @@ Description: 'Very simple web application using Lambda, Apigateway, S3, dynamodb
 
   '
 Resources:
+  DummyBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: za-dummy-bucket
   StaticWebSiteBucket:
     Type: AWS::S3::Bucket
     Properties:
@@ -80,6 +84,30 @@ Resources:
             - DE
             - CH
             - AT
+  R53RecordSetIPv4:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: kmeson.com.
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+          - webSiteDistribution
+          - DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+      HostedZoneId: Z2ZHR0TFXKH3HH
+      Type: A
+  R53RecordSetIPv6:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name: kmeson.com.
+      AliasTarget:
+        DNSName:
+          Fn::GetAtt:
+          - webSiteDistribution
+          - DomainName
+        HostedZoneId: Z2FDTNDATAQYW2
+      HostedZoneId: Z2ZHR0TFXKH3HH
+      Type: AAAA
   rideTable:
     Type: AWS::DynamoDB::Table
     Properties:
@@ -99,7 +127,7 @@ Resources:
       Description: Function to create Rides
       Runtime: python3.6
       Handler: writer.lambda_handler
-      CodeUri: s3://za-wild-poc/7518c351dfc7ecf322a7415530d0ac3e
+      CodeUri: s3://za-wild-poc/5109c4160376fe6ff425fd658578e30a
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
@@ -110,7 +138,7 @@ Resources:
       Description: Function to read all Rides
       Runtime: python3.6
       Handler: getall.lambda_handler
-      CodeUri: s3://za-wild-poc/103a281a09f2ccd5c40e210d9a2b0fea
+      CodeUri: s3://za-wild-poc/6a53d4f14a258709b99e25636bee92f0
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
