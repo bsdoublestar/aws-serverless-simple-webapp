@@ -76,6 +76,11 @@ Resources:
           S3OriginConfig:
             OriginAccessIdentity:
               Fn::Sub: origin-access-identity/cloudfront/${WebSiteAccessIdentity}
+        Aliases:
+        - '*.kmeson.com'
+        ViewerCertificate:
+          AcmCertificateArn: arn:aws:acm:us-east-1:052277535492:certificate/c8c20df3-a43d-453f-b929-e57869d369cd
+          SslSupportMethod: sni-only
         PriceClass: PriceClass_All
         Restrictions:
           GeoRestriction:
@@ -127,7 +132,11 @@ Resources:
       Description: Function to create Rides
       Runtime: python3.6
       Handler: writer.lambda_handler
+<<<<<<< HEAD
       CodeUri: s3://za-wild-poc/5109c4160376fe6ff425fd658578e30a
+=======
+      CodeUri: s3://za-wild-poc/17b1f90e18320dc677eb4c0a0e75cc7d
+>>>>>>> cca58c75be99623bee502eeb3c9dc9e0b59118ee
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
@@ -138,7 +147,11 @@ Resources:
       Description: Function to read all Rides
       Runtime: python3.6
       Handler: getall.lambda_handler
+<<<<<<< HEAD
       CodeUri: s3://za-wild-poc/6a53d4f14a258709b99e25636bee92f0
+=======
+      CodeUri: s3://za-wild-poc/e64094d194b7aa3fe0645d0b23fa0ab4
+>>>>>>> cca58c75be99623bee502eeb3c9dc9e0b59118ee
       Role:
         Fn::Sub: ${LambdaAccessToDynamoRole.Arn}
       MemorySize: 128
