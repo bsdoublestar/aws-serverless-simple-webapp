@@ -11,7 +11,13 @@ function getRides() {
             itemJson = JSON.stringify(item);
             block += item.RideId.S + "<br>";            
         }
-        document.getElementById("ridesTableBodyDiv").innerHTML = block;
+        var oldItems = localStorage.getItem("rides");
+        var newItems = JSON.stringify(json.Items);
+        if (newItems !== oldItems) {
+          localStorage.setItem("rides",newItems);
+          localStorage.setItem("ridesUpdated",1);
+        }
+        updateNumberCircle();
       }
     };
     xhttp.open("GET", "https://4mmuolcjva.execute-api.eu-central-1.amazonaws.com/DEV/api/v1/rides", true);

@@ -92,7 +92,7 @@ hr {
 
 }
 
-.getRidesButton {
+.updateRidesButton {
     background-color: orange;
 }
 
@@ -132,4 +132,25 @@ hr {
     font-size: 8px;
     color: grey;
 }
+
+/*
+*
+*  Update Circle
+*
+*/
+.numberCircle {
+    display: none;
+    position: absolute;
+    top: -3px;
+    left: 118px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    padding: 1px;
+    background: #f00;
+    border: 1px solid #f00;
+    color: #fff;
+    text-align: center;
+    font: 8px Arial, sans-serif;
+  }
 

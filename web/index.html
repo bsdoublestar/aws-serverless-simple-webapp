@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
-<body>
+<body onload="displayRides(true)" onfocus="updateNumberCircle()">
 
 <div class="webPageVersion">
     Version 0.0.2
@@ -17,16 +17,20 @@
 </div>
 
 <div class="displayRidesDiv">
-    <button class="getRidesButton" onclick="getRides()">Get Rides</button>
+    <button class="updateRidesButton" onclick="displayRides()">Update Rides</button>
     <div class="ridesTableDiv">
         <div class="ridesTableHeaderDiv">Rides</div>
         <hr class="ridesTableHeaderSeparator">
         <div id="ridesTableBodyDiv" class="ridesTableBodyDiv">no data loaded yet</div>
     </div>
+    <div class="numberCircle" id="numberCircle">0</div>
 </div>
 
 <script src="js/createRide.js"></script>
 <script src="js/getRides.js"></script>
+<script src="js/displayRides.js"></script>
+<script src="js/timer.js"></script>
+<script src="js/updateNumberCircle.js"></script>
 
 </body>
 </html>
