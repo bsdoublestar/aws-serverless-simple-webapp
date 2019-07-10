@@ -5,7 +5,7 @@ function isUpdated() {
 
 function numberRidesDisplayed() {
     var numberRidesDisplayed = sessionStorage.getItem("numberRidesDisplayed");
-    if (numberRidesDisplayed === "undefined") return 0;
+    if (numberRidesDisplayed == null) return 0; // null or undefined
     return parseInt(numberRidesDisplayed);
 }
 

@@ -3,13 +3,18 @@ function displayRides(onloadCall=false) {
       return;
     }
     var rides = readRidesFromStore();
-    var block = "";
-    var item = {};
-    for (item of rides) {
-        block += item.RideId.S + "<br>";            
+    if (rides !== null) {
+      var block = "";
+      var item = {};
+      for (item of rides) {
+          block += item.RideId.S + "<br>";            
+      }
+      document.getElementById("ridesTableBodyDiv").innerHTML = block;
+      sessionStorage.setItem("numberRidesDisplayed",rides.length);
     }
-    document.getElementById("ridesTableBodyDiv").innerHTML = block;
-    sessionStorage.setItem("numberRidesDisplayed",rides.length);
+    else {
+      sessionStorage.setItem("numberRidesDisplayed",0);
+    }
     localStorage.setItem("ridesUpdated",0);
     updateNumberCircle();
   }
